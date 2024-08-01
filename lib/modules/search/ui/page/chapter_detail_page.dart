@@ -30,7 +30,8 @@ class MangaDexChapterPage extends StatelessWidget {
                 icon: Icon(
                     state.isCascadeMode ? Icons.view_day : Icons.view_carousel),
                 onPressed: () {
-                  searchDelegateBloc.add(ToggleCascadeModeEvent());
+                  searchDelegateBloc
+                      .add(ToggleCascadeModeEvent(!state.isCascadeMode));
                 },
               ),
             ],

@@ -58,7 +58,11 @@ class ChangePageIndexEvent extends SearchDelegateEvent {
   const ChangePageIndexEvent(this.newIndex);
 }
 
-class ToggleCascadeModeEvent extends SearchDelegateEvent {}
+class ToggleCascadeModeEvent extends SearchDelegateEvent {
+  final bool isCascadeMode;
+
+  const ToggleCascadeModeEvent(this.isCascadeMode);
+}
 
 class ChangeSearchStateEvent extends SearchDelegateEvent {
   final SearchState searchState;

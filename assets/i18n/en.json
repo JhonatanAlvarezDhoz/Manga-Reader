@@ -1,1 +1,6 @@
-{"user_email": "E-mail address", "something_went_wrong": "Something went wrong. Please contact the administrator o try later.", "something_went_wrong_login": "Something went wrong while login. Please contact the administrator o try later."}
+{
+"something_went_wrong": "Something went wrong. Please contact the administrator o try later.", 
+"something_went_wrong_login": "Something went wrong while login. Please contact the administrator o try later.",
+"settings": "Settings",
+"darck_mode": "DarckMode"
+}
