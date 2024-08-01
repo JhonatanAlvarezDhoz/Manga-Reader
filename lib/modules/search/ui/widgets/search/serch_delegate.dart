@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:manga_reader/base/widgets/base.dart';
 import 'package:manga_reader/modules/search/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/searchh_result.dart';
 import 'package:manga_reader/modules/search/ui/page/manga_detail_page.dart';
+import 'package:manga_reader/utils/responsive.dart';
 
 class SarchMangaDelegate extends SearchDelegate<SearchResult> {
   @override
@@ -32,47 +34,75 @@ class SarchMangaDelegate extends SearchDelegate<SearchResult> {
 
   @override
   Widget buildResults(BuildContext context) {
+    const String assetName = 'assets/images/folder.svg';
+    final ThemeData theme = Theme.of(context);
     final searchBloc = BlocProvider.of<SearchDelegateBloc>(context);
+    final size = Responsive.of(context);
     searchBloc.add(SearchManga(query));
 
     return BlocBuilder<SearchDelegateBloc, SearchDelegateState>(
         builder: ((context, state) {
       final mangas = state.mangas;
-      return ListView.separated(
-        itemBuilder: (context, i) {
-          final manga = mangas[i].attributes;
-          return ListTile(
-            title: CustomText(
-                text: manga.title.es ??
-                    manga.title.en ??
-                    "Sin título disponible"),
-            subtitle: CustomText(
-              text: manga.description.es ??
-                  manga.description.en ??
-                  "Sin descripción disponible",
-              textOverflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              fontSize: 15,
-            ),
-            trailing: const Icon(
-              Icons.movie_filter_outlined,
-              color: Colors.black,
-            ),
-            onTap: () {
-              searchBloc.add(AddToHistorySearchEvent(state.mangas[i]));
-              searchBloc.add(SelectedMangaEvent(state.mangas[i].id));
-              Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
-                return MangaDexDetailView(
-                  mangaId: state.mangas[i].id,
-                  manga: state.mangas[i],
+      return mangas.isEmpty
+          ? Container(
+              width: size.widthResponsive(100),
+              height: size.widthResponsive(100),
+              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SvgPicture.asset(
+                    assetName,
+                    semanticsLabel: 'Empty Logo',
+                    width: size.diagonalResponsive(31),
+                    color: theme.hintColor,
+                  ),
+                  CustomText(
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 22,
+                      text:
+                          'Lo sentimos en el momento no contamos con el titulo "$query"')
+                ],
+              ),
+            )
+          : ListView.separated(
+              itemBuilder: (context, i) {
+                final manga = mangas[i].attributes;
+                return ListTile(
+                  title: CustomText(
+                      text: manga.title.es ??
+                          manga.title.en ??
+                          "Sin título disponible"),
+                  subtitle: CustomText(
+                    text: manga.description.es ??
+                        manga.description.en ??
+                        "Sin descripción disponible",
+                    textOverflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    fontSize: 15,
+                  ),
+                  trailing: const Icon(
+                    Icons.movie_filter_outlined,
+                    color: Colors.black,
+                  ),
+                  onTap: () {
+                    searchBloc.add(AddToHistorySearchEvent(state.mangas[i]));
+                    searchBloc.add(SelectedMangaEvent(state.mangas[i].id));
+                    Navigator.of(context)
+                        .push(CupertinoPageRoute(builder: (context) {
+                      return MangaDexDetailView(
+                        mangaId: state.mangas[i].id,
+                        manga: state.mangas[i],
+                      );
+                    }));
+                  },
                 );
-              }));
-            },
-          );
-        },
-        separatorBuilder: (context, i) => const Divider(),
-        itemCount: mangas.length,
-      );
+              },
+              separatorBuilder: (context, i) => const Divider(),
+              itemCount: mangas.length,
+            );
     }));
   }
 
