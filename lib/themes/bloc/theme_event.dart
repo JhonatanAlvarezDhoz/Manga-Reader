@@ -7,4 +7,11 @@ abstract class ThemeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ToggleTheme extends ThemeEvent {}
+class ToggleTheme extends ThemeEvent {
+  final bool isDarckMode;
+
+  const ToggleTheme(this.isDarckMode);
+
+  @override
+  List<Object> get props => [isDarckMode];
+}

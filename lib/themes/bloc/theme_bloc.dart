@@ -6,11 +6,12 @@ part 'theme_event.dart';
 part 'theme_state.dart';
 
 class ThemeBloc extends Bloc<ThemeEvent, ThemeState> {
-  ThemeBloc() : super(ThemeState(themeData: lightTheme)) {
+  ThemeBloc() : super(ThemeState(themeData: lightTheme, isDarckMode: false)) {
     on<ToggleTheme>((event, emit) {
       final isCurrentlyLightTheme = state.themeData == lightTheme;
       emit(ThemeState(
-          themeData: isCurrentlyLightTheme ? darkTheme : lightTheme));
+          themeData: isCurrentlyLightTheme ? darkTheme : lightTheme,
+          isDarckMode: !state.isDarckMode));
     });
   }
 

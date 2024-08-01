@@ -12,11 +12,17 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Búsqueda de Manga'),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.brightness_6),
-            onPressed: () {
-              BlocProvider.of<ThemeBloc>(context).add(ToggleTheme());
+          BlocListener<ThemeBloc, ThemeState>(
+            listener: (context, state) {
+              //
             },
+            child: IconButton(
+              icon: const Icon(Icons.brightness_6),
+              onPressed: () {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(const ToggleTheme(false));
+              },
+            ),
           ),
         ],
       ),
