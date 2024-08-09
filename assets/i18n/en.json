@@ -2,5 +2,10 @@
 "something_went_wrong": "Something went wrong. Please contact the administrator o try later.", 
 "something_went_wrong_login": "Something went wrong while login. Please contact the administrator o try later.",
 "settings": "Settings",
-"darck_mode": "DarckMode"
+"home": "Home",
+"search": "Search",
+"download": "Download",
+"darck_mode": "Darck Mode",
+"view_mode": "Cascade view",
+"language": "Language"
 }

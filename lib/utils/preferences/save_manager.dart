@@ -2,6 +2,7 @@ import 'package:manga_reader/utils/preferences/reading_progress_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SaveManager {
+  //Reading Progress
   static Future<void> saveProgress(ReadingProgress progress) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString('mangaId', progress.mangaId);
@@ -20,6 +21,7 @@ class SaveManager {
     }
   }
 
+  //Darck Mode
   static Future<void> saveDarckMode(bool isDarcMode) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isDarcMode', isDarcMode);
@@ -36,6 +38,7 @@ class SaveManager {
     }
   }
 
+  //View Chapter Mode
   static Future<void> saveViewChapterMode(bool isCascadeMode) async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool('isCascadeMode', isCascadeMode);
@@ -50,5 +53,16 @@ class SaveManager {
     } else {
       return null;
     }
+  }
+
+  //Change Labguage
+  static Future<void> saveLanguage(String languageCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('languageCode', languageCode);
+  }
+
+  static Future<String?> loadLanguage() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('languageCode');
   }
 }

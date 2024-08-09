@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:manga_reader/localization/languageManager.dart';
 import 'package:manga_reader/themes/theme_colors.dart';
-import 'package:manga_reader/utils/preferences/reading_progress.dart';
+import 'package:manga_reader/utils/preferences/save_manager.dart';
 
 part 'settings_event.dart';
 part 'settings_state.dart';
@@ -10,10 +11,14 @@ part 'settings_state.dart';
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc()
       : super(SettingsState(
-            themeData: lightTheme, isDarckMode: false, isCascadeView: false)) {
+            themeData: lightTheme,
+            isDarckMode: false,
+            isCascadeView: false,
+            languageCode: 'es')) {
     on<LoadSettingsEvent>(_onLoadSettings);
     on<ToggleThemeEvent>(_onToggleTheme);
     on<ToggleViewModeEvent>(_onToggleViewMode);
+    on<ToggleChangeLanguageEvent>(_onChangeLanguage);
 
     // Disparar la carga inicial del tema
     add(LoadSettingsEvent());
@@ -48,10 +53,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
     final isCascadeView = await SaveManager.loadViewChapterMode() ?? false;
 
+    final languageCode = await SaveManager.loadLanguage() ?? 'es';
+    await LanguageManager().changeLanguage(languageCode);
+
     emit(state.copyWith(
       themeData: themeData,
       isDarckMode: isDarkMode,
       isCascadeView: isCascadeView,
+      languageCode: languageCode,
     ));
   }
 
@@ -78,5 +87,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     await SaveManager.saveViewChapterMode(newViewMode);
 
     emit(state.copyWith(isCascadeView: newViewMode));
+  }
+
+  Future<void> _onChangeLanguage(
+      ToggleChangeLanguageEvent event, Emitter<SettingsState> emit) async {
+    final newLanguageCode = state.languageCode == 'en' ? 'es' : 'en';
+
+    // Guardar la preferencia
+    await SaveManager.saveLanguage(newLanguageCode);
+
+    // Cambiar el idioma en LanguageManager
+    await LanguageManager().changeLanguage(newLanguageCode);
+
+    emit(state.copyWith(languageCode: newLanguageCode));
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:manga_reader/base/widgets/base.dart';
+import 'package:manga_reader/localization/languageManager.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -16,16 +17,19 @@ class SettingsPage extends StatelessWidget {
 
       return BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, settingState) {
+          final bool languageValue =
+              settingState.languageCode == 'es' ? true : false;
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             child: Column(
               children: [
-                const SafeArea(
-                  child: CustomText(text: "Settings"),
+                SafeArea(
+                  child:
+                      CustomText(text: LanguageManager().translate().settings),
                 ),
                 _SettingBox(
                   size: size,
-                  textLabel: "DarckMode",
+                  textLabel: LanguageManager().translate().darckMode,
                   isActive: settingState.isDarckMode,
                   assetName: settingState.isDarckMode
                       ? "assets/icons/moon.svg"
@@ -36,7 +40,7 @@ class SettingsPage extends StatelessWidget {
                 ),
                 _SettingBox(
                     size: size,
-                    textLabel: "Capitulos en cascada",
+                    textLabel: LanguageManager().translate().viewMode,
                     isActive: settingState.isCascadeView,
                     assetName: settingState.isCascadeView
                         ? "assets/icons/view.svg"
@@ -46,13 +50,13 @@ class SettingsPage extends StatelessWidget {
                     }),
                 _SettingBox(
                     size: size,
-                    textLabel: "Idioma",
-                    isActive: settingState.isCascadeView,
-                    assetName: settingState.isCascadeView
+                    textLabel: LanguageManager().translate().language,
+                    isActive: languageValue,
+                    assetName: languageValue
                         ? "assets/icons/en.svg"
                         : "assets/icons/translate.svg",
                     onToggle: (bool newValue) {
-                      settingBloc.add(ToggleViewModeEvent());
+                      settingBloc.add(ToggleChangeLanguageEvent());
                     })
               ],
             ),

@@ -21,7 +21,27 @@ class Translation {
     return _translations['settings'] ?? 'Ajustes';
   }
 
+  String get home {
+    return _translations['home'] ?? 'Inicio';
+  }
+
+  String get search {
+    return _translations['search'] ?? 'Buscar';
+  }
+
+  String get download {
+    return _translations['download'] ?? 'Descarga';
+  }
+
   String get darckMode {
     return _translations['darck_mode'] ?? 'Modo Oscuro';
+  }
+
+  String get viewMode {
+    return _translations['view_mode'] ?? 'Capitulos en cascada';
+  }
+
+  String get language {
+    return _translations['language'] ?? 'Idioma';
   }
 }

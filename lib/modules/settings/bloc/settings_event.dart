@@ -7,8 +7,10 @@ sealed class SettingsEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class LoadSettingsEvent extends SettingsEvent {}
+
 class ToggleThemeEvent extends SettingsEvent {}
 
 class ToggleViewModeEvent extends SettingsEvent {}
 
-class LoadSettingsEvent extends SettingsEvent {}
+class ToggleChangeLanguageEvent extends SettingsEvent {}

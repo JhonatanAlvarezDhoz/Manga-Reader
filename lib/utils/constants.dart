@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:manga_reader/localization/languageManager.dart';
 
 class IconNavBottomBar {
   IconData icon;
@@ -11,14 +12,14 @@ class IconNavBottomBar {
 List<IconNavBottomBar> iconNavBottomBar = [
   IconNavBottomBar(
     icon: Icons.home,
-    title: "Home",
+    title: LanguageManager().translate().home,
   ),
   IconNavBottomBar(
     icon: Icons.search,
-    title: "Search",
+    title: LanguageManager().translate().search,
   ),
   IconNavBottomBar(
     icon: Icons.settings,
-    title: "settings",
+    title: LanguageManager().translate().settings,
   )
 ];
