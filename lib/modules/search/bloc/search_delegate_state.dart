@@ -22,9 +22,6 @@ class SearchDelegateState extends Equatable {
   final bool hasMore;
   final bool isAscending;
 
-  // View mode
-  final bool isCascadeMode;
-
   const SearchDelegateState({
     this.searchState = SearchState.initial,
     this.mangas = const [],
@@ -38,8 +35,6 @@ class SearchDelegateState extends Equatable {
     this.isLoading = false,
     this.hasMore = true,
     this.isAscending = true,
-    // View mode
-    this.isCascadeMode = false,
   });
 
   SearchDelegateState copyWith({
@@ -57,22 +52,19 @@ class SearchDelegateState extends Equatable {
     bool? isLoading,
     bool? hasMore,
     bool? isAscending,
-
-    // View mode
-    bool? isCascadeMode,
   }) =>
       SearchDelegateState(
-          searchState: searchState ?? this.searchState,
-          mangas: mangas ?? this.mangas,
-          chapters: chapters ?? this.chapters,
-          chapter: chapter ?? this.chapter,
-          historySearch: historySearch ?? this.historySearch,
-          errorText: errorText ?? this.errorText,
-          currentIndex: currentIndex ?? this.currentIndex,
-          offset: offset ?? this.offset,
-          isLoading: isLoading ?? this.isAscending,
-          isAscending: isAscending ?? this.isAscending,
-          isCascadeMode: isCascadeMode ?? this.isCascadeMode);
+        searchState: searchState ?? this.searchState,
+        mangas: mangas ?? this.mangas,
+        chapters: chapters ?? this.chapters,
+        chapter: chapter ?? this.chapter,
+        historySearch: historySearch ?? this.historySearch,
+        errorText: errorText ?? this.errorText,
+        currentIndex: currentIndex ?? this.currentIndex,
+        offset: offset ?? this.offset,
+        isLoading: isLoading ?? this.isAscending,
+        isAscending: isAscending ?? this.isAscending,
+      );
 
   @override
   List<Object> get props => [
@@ -86,6 +78,5 @@ class SearchDelegateState extends Equatable {
         hasMore,
         isLoading,
         currentIndex,
-        isCascadeMode
       ];
 }

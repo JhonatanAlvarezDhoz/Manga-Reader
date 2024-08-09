@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_reader/modules/search/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/chapters_response.dart';
+import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 
 class MangaDexChapterPage extends StatelessWidget {
   final String chapterId;
@@ -21,88 +22,93 @@ class MangaDexChapterPage extends StatelessWidget {
 
     return BlocBuilder<SearchDelegateBloc, SearchDelegateState>(
       builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(
-                'Capítulo ${state.chapters[currentIndex].attributes.title}'),
-            actions: [
-              IconButton(
-                icon: Icon(
-                    state.isCascadeMode ? Icons.view_day : Icons.view_carousel),
-                onPressed: () {
-                  searchDelegateBloc
-                      .add(ToggleCascadeModeEvent(!state.isCascadeMode));
-                },
-              ),
-            ],
-          ),
-          body: state.chapter.isEmpty
-              ? const Center(child: CircularProgressIndicator())
-              : state.isCascadeMode
-                  ? ListView.builder(
-                      itemCount: state.chapter.length,
-                      itemBuilder: (context, index) {
-                        return Image.network(state.chapter[index]);
-                      },
-                    )
-                  : PageView.builder(
-                      itemCount: state.chapter.length,
-                      onPageChanged: (index) {
-                        searchDelegateBloc.add(ChangePageIndexEvent(index));
-                      },
-                      itemBuilder: (context, index) {
-                        return Image.network(state.chapter[index]);
-                      },
-                    ),
-          bottomNavigationBar: BottomAppBar(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                if (currentIndex > 0)
-                  ElevatedButton(
+        return BlocBuilder<SettingsBloc, SettingsState>(
+          builder: (context, settingState) {
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                    'Capítulo ${state.chapters[currentIndex].attributes.title}'),
+                actions: [
+                  IconButton(
+                    icon: Icon(settingState.isCascadeView
+                        ? Icons.view_day
+                        : Icons.view_carousel),
                     onPressed: () {
-                      final previousIndex = currentIndex - 1;
-                      searchDelegateBloc.add(LoadChapterPagesEvent(
-                          state.chapters[previousIndex].id));
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MangaDexChapterPage(
-                            chapterId: chapters[previousIndex].id,
-                            chapters: chapters,
-                            currentIndex: previousIndex,
-                          ),
-                        ),
-                      );
-                    },
-                    child: const Icon(Icons.arrow_circle_left_sharp),
-                  ),
-                const Text(
-                  'Powered by MangaDex',
-                  style: TextStyle(fontStyle: FontStyle.italic),
-                ),
-                if (currentIndex < chapters.length - 1)
-                  ElevatedButton(
-                    onPressed: () {
-                      final nextIndex = currentIndex + 1;
                       searchDelegateBloc.add(
-                          LoadChapterPagesEvent(state.chapters[nextIndex].id));
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MangaDexChapterPage(
-                            chapterId: chapters[nextIndex].id,
-                            chapters: chapters,
-                            currentIndex: nextIndex,
-                          ),
-                        ),
-                      );
+                          ToggleCascadeModeEvent(!settingState.isCascadeView));
                     },
-                    child: const Icon(Icons.arrow_circle_right_sharp),
                   ),
-              ],
-            ),
-          ),
+                ],
+              ),
+              body: state.chapter.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : settingState.isCascadeView
+                      ? ListView.builder(
+                          itemCount: state.chapter.length,
+                          itemBuilder: (context, index) {
+                            return Image.network(state.chapter[index]);
+                          },
+                        )
+                      : PageView.builder(
+                          itemCount: state.chapter.length,
+                          onPageChanged: (index) {
+                            searchDelegateBloc.add(ChangePageIndexEvent(index));
+                          },
+                          itemBuilder: (context, index) {
+                            return Image.network(state.chapter[index]);
+                          },
+                        ),
+              bottomNavigationBar: BottomAppBar(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    if (currentIndex > 0)
+                      ElevatedButton(
+                        onPressed: () {
+                          final previousIndex = currentIndex - 1;
+                          searchDelegateBloc.add(LoadChapterPagesEvent(
+                              state.chapters[previousIndex].id));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MangaDexChapterPage(
+                                chapterId: chapters[previousIndex].id,
+                                chapters: chapters,
+                                currentIndex: previousIndex,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Icon(Icons.arrow_circle_left_sharp),
+                      ),
+                    const Text(
+                      'Powered by MangaDex',
+                      style: TextStyle(fontStyle: FontStyle.italic),
+                    ),
+                    if (currentIndex < chapters.length - 1)
+                      ElevatedButton(
+                        onPressed: () {
+                          final nextIndex = currentIndex + 1;
+                          searchDelegateBloc.add(LoadChapterPagesEvent(
+                              state.chapters[nextIndex].id));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MangaDexChapterPage(
+                                chapterId: chapters[nextIndex].id,
+                                chapters: chapters,
+                                currentIndex: nextIndex,
+                              ),
+                            ),
+                          );
+                        },
+                        child: const Icon(Icons.arrow_circle_right_sharp),
+                      ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       },
     );

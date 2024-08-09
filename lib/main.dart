@@ -5,8 +5,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:manga_reader/base/widgets/base.dart';
 import 'package:manga_reader/localization/languageManager.dart';
+import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 import 'package:manga_reader/routes/app_pages.dart';
-import 'package:manga_reader/themes/bloc/theme_bloc.dart';
 import 'package:manga_reader/utils/injector.dart';
 
 void main() async {
@@ -43,7 +43,7 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
+    return BlocBuilder<SettingsBloc, SettingsState>(
       builder: (context, state) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,

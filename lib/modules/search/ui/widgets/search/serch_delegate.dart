@@ -54,7 +54,7 @@ class SarchMangaDelegate extends SearchDelegate<SearchResult> {
                 children: [
                   SvgPicture.asset(
                     assetName,
-                    semanticsLabel: 'Empty Logo',
+                    semanticsLabel: 'Empty icon',
                     width: size.diagonalResponsive(31),
                     color: theme.hintColor,
                   ),

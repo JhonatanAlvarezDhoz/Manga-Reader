@@ -24,7 +24,6 @@ class SearchDelegateBloc
     on<OnToggleOrderEvent>(_onToggleOrder);
     on<LoadChapterPagesEvent>(_loadChapterPages);
     on<ChangePageIndexEvent>(_changePageIndex);
-    on<ToggleCascadeModeEvent>(_toggleCascadeMode);
     on<ChangeSearchStateEvent>(_changeSearchState);
   }
 
@@ -157,13 +156,6 @@ class SearchDelegateBloc
     Emitter<SearchDelegateState> emit,
   ) {
     emit(state.copyWith(currentIndex: event.newIndex));
-  }
-
-  void _toggleCascadeMode(
-    ToggleCascadeModeEvent event,
-    Emitter<SearchDelegateState> emit,
-  ) {
-    emit(state.copyWith(isCascadeMode: !state.isCascadeMode));
   }
 
   void _changeSearchState(

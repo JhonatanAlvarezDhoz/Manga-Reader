@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:manga_reader/base/widgets/base.dart';
-import 'package:manga_reader/modules/search/bloc/search_delegate_bloc.dart';
-import 'package:manga_reader/themes/bloc/theme_bloc.dart';
+import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -12,40 +12,50 @@ class SettingsPage extends StatelessWidget {
     return Scaffold(body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       final BoxConstraints size = constraints;
-      final themeBloc = BlocProvider.of<ThemeBloc>(context);
-      final searchBloc = BlocProvider.of<SearchDelegateBloc>(context);
+      final settingBloc = BlocProvider.of<SettingsBloc>(context);
 
-      return BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, stateTheme) {
-          return BlocBuilder<SearchDelegateBloc, SearchDelegateState>(
-            builder: (context, stateSeach) {
-              return Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                child: Column(
-                  children: [
-                    const SafeArea(
-                      child: CustomText(text: "Settings"),
-                    ),
-                    _SettingBox(
-                      size: size,
-                      textLabel: "DarckMode",
-                      isActive: stateTheme.isDarckMode,
-                      onToggle: (bool newValue) {
-                        themeBloc.add(ToggleTheme(newValue));
-                      },
-                    ),
-                    _SettingBox(
-                        size: size,
-                        textLabel: "Capitulos en cascada",
-                        isActive: stateSeach.isCascadeMode,
-                        onToggle: (bool newValue) {
-                          searchBloc.add(ToggleCascadeModeEvent(newValue));
-                        })
-                  ],
+      return BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, settingState) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+            child: Column(
+              children: [
+                const SafeArea(
+                  child: CustomText(text: "Settings"),
                 ),
-              );
-            },
+                _SettingBox(
+                  size: size,
+                  textLabel: "DarckMode",
+                  isActive: settingState.isDarckMode,
+                  assetName: settingState.isDarckMode
+                      ? "assets/icons/moon.svg"
+                      : "assets/icons/sun.svg",
+                  onToggle: (bool newValue) {
+                    settingBloc.add(ToggleThemeEvent());
+                  },
+                ),
+                _SettingBox(
+                    size: size,
+                    textLabel: "Capitulos en cascada",
+                    isActive: settingState.isCascadeView,
+                    assetName: settingState.isCascadeView
+                        ? "assets/icons/view.svg"
+                        : "assets/icons/offView.svg",
+                    onToggle: (bool newValue) {
+                      settingBloc.add(ToggleViewModeEvent());
+                    }),
+                _SettingBox(
+                    size: size,
+                    textLabel: "Idioma",
+                    isActive: settingState.isCascadeView,
+                    assetName: settingState.isCascadeView
+                        ? "assets/icons/en.svg"
+                        : "assets/icons/translate.svg",
+                    onToggle: (bool newValue) {
+                      settingBloc.add(ToggleViewModeEvent());
+                    })
+              ],
+            ),
           );
         },
       );
@@ -55,22 +65,26 @@ class SettingsPage extends StatelessWidget {
 
 class _SettingBox extends StatelessWidget {
   const _SettingBox({
-    super.key,
     required this.size,
     required this.textLabel,
     required this.onToggle,
     required this.isActive,
+    required this.assetName,
   });
 
   final String textLabel;
   final bool isActive;
   final BoxConstraints size;
   final ValueChanged<bool> onToggle;
+  final String assetName;
+
   @override
   Widget build(BuildContext context) {
     final double height = size.maxHeight;
     final double width = size.maxWidth;
     final Color shadowColor = Colors.grey.withOpacity(0.1);
+
+    final ThemeData theme = Theme.of(context);
     return Container(
       height: height * 0.06,
       width: width,
@@ -82,7 +96,21 @@ class _SettingBox extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          CustomText(text: textLabel),
+          SizedBox(
+            width: width * 0.65,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomText(text: textLabel),
+                SvgPicture.asset(
+                  assetName,
+                  width: height * 0.03,
+                  // ignore: deprecated_member_use
+                  color: theme.textTheme.bodyMedium!.color,
+                ),
+              ],
+            ),
+          ),
           Switch.adaptive(value: isActive, onChanged: onToggle)
         ],
       ),

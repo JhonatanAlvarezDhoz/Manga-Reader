@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_reader/base/widgets/custom_text.dart';
-import 'package:manga_reader/themes/bloc/theme_bloc.dart';
+import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 import 'package:manga_reader/utils/constants.dart';
 import 'package:manga_reader/utils/responsive.dart';
 
@@ -22,12 +22,11 @@ class CustomBottomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
-    final themeState = context.watch<ThemeBloc>().state;
+    final settingBloc = context.watch<SettingsBloc>().state;
 
-    bool isDarkTheme = themeState.themeData.brightness == Brightness.dark;
+    bool isDarkTheme = settingBloc.themeData.brightness == Brightness.dark;
     final ThemeData theme = Theme.of(context);
 
-    // Color backgroundColor = isDarkTheme ? Colors.black : Colors.white;
     Color shadowColor = isDarkTheme
         ? Colors.white.withOpacity(0.5)
         : Colors.grey.withOpacity(0.1);
@@ -88,8 +87,8 @@ class _BottomAnimatedContainer extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   Color choiceColor(BuildContext context, int currentTab) {
-    final themeState = context.watch<ThemeBloc>().state;
-    bool isDarkTheme = themeState.themeData.brightness == Brightness.dark;
+    final settingBloc = context.watch<SettingsBloc>().state;
+    bool isDarkTheme = settingBloc.themeData.brightness == Brightness.dark;
 
     if (isDarkTheme) {
       switch (currentTab) {
@@ -119,8 +118,8 @@ class _BottomAnimatedContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Responsive responsive = Responsive.of(context);
-    final themeState = context.watch<ThemeBloc>().state;
-    bool isDarkTheme = themeState.themeData.brightness == Brightness.dark;
+    final settingState = context.watch<SettingsBloc>().state;
+    bool isDarkTheme = settingState.themeData.brightness == Brightness.dark;
 
     Color backgroundColor =
         isDarkTheme ? Colors.grey[850]! : Colors.grey.withOpacity(0.2);
