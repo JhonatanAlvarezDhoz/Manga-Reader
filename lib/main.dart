@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:manga_reader/base/ui/page/splash.dart';
 import 'package:manga_reader/base/ui/widgets/base.dart';
 import 'package:manga_reader/localization/languageManager.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
@@ -69,7 +70,7 @@ class _MainAppState extends State<MainApp> {
             Locale('es', ''),
             Locale('en', ''),
           ],
-          home: const BasePage(),
+          home: const SplashPage(),
           onGenerateRoute: AppPages.routes,
         );
       },

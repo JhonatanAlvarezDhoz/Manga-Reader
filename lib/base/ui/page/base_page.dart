@@ -38,8 +38,7 @@ class _BasePageState extends State<BasePage> {
             builder: (BuildContext context, BoxConstraints constraints) {
           return Column(children: [
             TopBar(size: constraints),
-            Container(
-              color: Colors.red,
+            SizedBox(
               height: constraints.maxHeight * 0.845,
               width: constraints.maxWidth,
               child: PageView(
