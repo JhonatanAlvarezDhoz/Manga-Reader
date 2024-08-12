@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:manga_reader/base/widgets/base.dart';
+import 'package:manga_reader/base/ui/widgets/base.dart';
 import 'package:manga_reader/localization/languageManager.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 

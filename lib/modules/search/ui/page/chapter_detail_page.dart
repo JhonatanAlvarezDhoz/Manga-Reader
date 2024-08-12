@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:manga_reader/localization/languageManager.dart';
 import 'package:manga_reader/modules/home/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/chapters_response.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
+import 'package:manga_reader/themes/theme_colors.dart';
 
 class MangaDexChapterPage extends StatelessWidget {
   final String chapterId;
@@ -20,6 +22,7 @@ class MangaDexChapterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final searchDelegateBloc = BlocProvider.of<SearchDelegateBloc>(context);
+    final settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
     return BlocBuilder<SearchDelegateBloc, SearchDelegateState>(
       builder: (context, state) {
@@ -30,14 +33,24 @@ class MangaDexChapterPage extends StatelessWidget {
                 title: Text(
                     '${LanguageManager().translate().chapter} ${state.chapters[currentIndex].attributes.title}'),
                 actions: [
-                  IconButton(
-                    icon: Icon(settingState.isCascadeView
-                        ? Icons.view_day
-                        : Icons.view_carousel),
-                    onPressed: () {
-                      searchDelegateBloc.add(
-                          ToggleCascadeModeEvent(!settingState.isCascadeView));
-                    },
+                  GestureDetector(
+                    onTap: () => settingsBloc.add(ToggleViewModeEvent()),
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 15),
+                      height: 25,
+                      width: 30,
+                      child: settingState.isCascadeView
+                          ? SvgPicture.asset(
+                              "assets/icons/view.svg",
+                              color:
+                                  Theme.of(context).textTheme.bodyMedium!.color,
+                            )
+                          : SvgPicture.asset(
+                              "assets/icons/offView.svg",
+                              color:
+                                  Theme.of(context).textTheme.bodyMedium!.color,
+                            ),
+                    ),
                   ),
                 ],
               ),
@@ -80,10 +93,13 @@ class MangaDexChapterPage extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Icon(Icons.arrow_circle_left_sharp),
+                        child: const Icon(
+                          Icons.arrow_circle_left_sharp,
+                          color: ThemeColors.hintColor,
+                        ),
                       ),
                     const Text(
-                      "Data sourced from the MangaDex API.",
+                      "Data from the MangaDex API.",
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                     if (currentIndex < chapters.length - 1)
@@ -103,7 +119,10 @@ class MangaDexChapterPage extends StatelessWidget {
                             ),
                           );
                         },
-                        child: const Icon(Icons.arrow_circle_right_sharp),
+                        child: const Icon(
+                          Icons.arrow_circle_right_sharp,
+                          color: ThemeColors.hintColor,
+                        ),
                       ),
                   ],
                 ),

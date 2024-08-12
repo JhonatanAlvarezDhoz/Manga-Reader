@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:manga_reader/base/widgets/custom_text.dart';
+import 'package:manga_reader/base/ui/widgets/custom_text.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 import 'package:manga_reader/themes/theme_colors.dart';
 import 'package:manga_reader/utils/constants.dart';
@@ -99,7 +99,7 @@ class _BottomAnimatedContainer extends StatelessWidget {
         case searchTab:
           return Colors.red[300]!;
         case settingsTab:
-          return Colors.green[300]!;
+          return ThemeColors.greenColor;
         default:
           return Colors.grey[600]!;
       }
@@ -110,7 +110,7 @@ class _BottomAnimatedContainer extends StatelessWidget {
         case searchTab:
           return Colors.red;
         case settingsTab:
-          return Colors.green;
+          return ThemeColors.greenColor;
         default:
           return Colors.grey;
       }

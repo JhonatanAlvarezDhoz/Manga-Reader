@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manga_reader/base/widgets/custom_bottom_navigation_bar/custom_bottom_navigation_bar.dart';
-import 'package:manga_reader/base/widgets/custom_text.dart';
+import 'package:manga_reader/base/ui/widgets/custom_bottom_navigation_bar/custom_bottom_navigation_bar.dart';
+import 'package:manga_reader/base/ui/widgets/custom_text.dart';
 import 'package:manga_reader/modules/home/ui/page/home.dart';
 import 'package:manga_reader/modules/search/ui/page/search_page.dart';
 import 'package:manga_reader/modules/settings/ui/page/settings_page.dart';

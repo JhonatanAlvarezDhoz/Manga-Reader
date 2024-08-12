@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:manga_reader/base/widgets/base.dart';
+import 'package:manga_reader/base/ui/widgets/base.dart';
 import 'package:manga_reader/localization/languageManager.dart';
 
 class SearchPage extends StatelessWidget {

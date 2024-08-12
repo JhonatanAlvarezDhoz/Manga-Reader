@@ -2,10 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:manga_reader/base/widgets/base.dart';
+import 'package:manga_reader/base/ui/widgets/base.dart';
 import 'package:manga_reader/modules/home/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/searchh_result.dart';
 import 'package:manga_reader/modules/search/ui/page/manga_detail_page.dart';
+import 'package:manga_reader/themes/theme_colors.dart';
 import 'package:manga_reader/utils/responsive.dart';
 
 class SearchMangaDelegate extends SearchDelegate<SearchResult> {
@@ -83,9 +84,9 @@ class SearchMangaDelegate extends SearchDelegate<SearchResult> {
                     maxLines: 2,
                     fontSize: 15,
                   ),
-                  trailing: const Icon(
-                    Icons.movie_filter_outlined,
-                    color: Colors.black,
+                  trailing: SvgPicture.asset(
+                    "assets/icons/book.svg",
+                    color: ThemeColors.hintColor,
                   ),
                   onTap: () {
                     searchBloc.add(AddToHistorySearchEvent(state.mangas[i]));

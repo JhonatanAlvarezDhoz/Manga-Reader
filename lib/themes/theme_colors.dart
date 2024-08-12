@@ -22,17 +22,13 @@ class ThemeColors extends Color {
 
   /// Defines a secondary color used in the application, typically for secondary elements.
 
-  /// Defines a tertiary color used in the application, often for backgrounds or subtle accents.
-  /// 00adfe
-  /// 356cb6
-  /// 393c54
-  /// a7aece
-
   /// Defines the white color used in the application, primarily for backgrounds or
   /// text on dark backgrounds.
   static const Color white = Color(0xffFFFFFF);
   static const Color blackColor = Color(0xFF000000);
   static const Color textSecundaryDarckColor = Color(0xB3FFFFFF);
+
+  static const Color greenColor = Color(0xFF4CAF50);
 
   /// Defines a light gray color used in the application, primarily for backgrounds.
   static const Color whiteGray = Color(0xffEAEAEA);

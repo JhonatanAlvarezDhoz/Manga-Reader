@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:manga_reader/base/widgets/custom_text.dart';
+import 'package:manga_reader/base/ui/widgets/custom_text.dart';
 import 'package:manga_reader/localization/languageManager.dart';
 import 'package:manga_reader/modules/home/ui/widgets/widgets.dart';
 import 'package:manga_reader/themes/theme_colors.dart';
@@ -82,16 +82,37 @@ class HomePage extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       fontSize: 20,
                     ),
-                    Container(
-                      alignment: Alignment.centerRight,
-                      margin: EdgeInsets.symmetric(
-                          horizontal: constraints.maxWidth * 0.05,
-                          vertical: constraints.maxHeight * 0.01),
-                      width: constraints.maxWidth,
-                      child: SvgPicture.asset(
-                        "assets/icons/reader.svg",
-                        width: 70,
-                        height: 70,
+                    SizedBox(
+                      height: 82,
+                      width: constraints.maxHeight,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            width: constraints.maxWidth * 0.4,
+                            height: 20,
+                            child: ProgressBar(
+                              value: 0.6,
+                              height: 8.0,
+                              backgroundColor: Colors.grey[300]!,
+                              progressColor: ThemeColors.greenColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: constraints.maxWidth * 0.37,
+                            child: Container(
+                              alignment: Alignment.centerRight,
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: constraints.maxWidth * 0.05,
+                                  vertical: constraints.maxHeight * 0.01),
+                              width: constraints.maxWidth,
+                              child: SvgPicture.asset(
+                                "assets/icons/reader.svg",
+                                width: 70,
+                                height: 70,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                     Row(
