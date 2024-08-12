@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:manga_reader/modules/search/bloc/search_delegate_bloc.dart';
+import 'package:manga_reader/localization/languageManager.dart';
+import 'package:manga_reader/modules/home/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/chapters_response.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
 
@@ -27,7 +28,7 @@ class MangaDexChapterPage extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 title: Text(
-                    'Capítulo ${state.chapters[currentIndex].attributes.title}'),
+                    '${LanguageManager().translate().chapter} ${state.chapters[currentIndex].attributes.title}'),
                 actions: [
                   IconButton(
                     icon: Icon(settingState.isCascadeView
@@ -82,7 +83,7 @@ class MangaDexChapterPage extends StatelessWidget {
                         child: const Icon(Icons.arrow_circle_left_sharp),
                       ),
                     const Text(
-                      'Powered by MangaDex',
+                      "Data sourced from the MangaDex API.",
                       style: TextStyle(fontStyle: FontStyle.italic),
                     ),
                     if (currentIndex < chapters.length - 1)

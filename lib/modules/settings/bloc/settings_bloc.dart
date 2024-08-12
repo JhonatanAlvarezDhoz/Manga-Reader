@@ -39,7 +39,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     brightness: Brightness.dark,
     primaryColor: ThemeColors.primaryDark,
     hintColor: ThemeColors.hintColor,
-    scaffoldBackgroundColor: ThemeColors.blackColor,
+    scaffoldBackgroundColor: ThemeColors.primaryDark,
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: ThemeColors.white),
       bodyMedium: TextStyle(color: ThemeColors.whiteGray),

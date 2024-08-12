@@ -4,8 +4,14 @@
 "settings": "Settings",
 "home": "Home",
 "search": "Search",
-"download": "Download",
+"download": "Files",
 "darck_mode": "Darck Mode",
 "view_mode": "Cascade view",
-"language": "Language"
+"language": "Language",
+"chapter": "Chapter",
+"continue_reading": "Continue reading...",
+"see": "See",
+"type_search": "Type to search...",
+"title_not_found": "Title not found",
+"upload_more_chapters": "Upload more chapters"
 }

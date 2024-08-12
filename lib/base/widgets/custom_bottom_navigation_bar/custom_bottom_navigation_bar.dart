@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:manga_reader/base/widgets/custom_text.dart';
 import 'package:manga_reader/modules/settings/bloc/settings_bloc.dart';
+import 'package:manga_reader/themes/theme_colors.dart';
 import 'package:manga_reader/utils/constants.dart';
 import 'package:manga_reader/utils/responsive.dart';
 
@@ -35,7 +37,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
       top: false,
       child: Container(
         padding:
-            EdgeInsets.symmetric(horizontal: responsive.diagonalResponsive(5)),
+            EdgeInsets.symmetric(horizontal: responsive.diagonalResponsive(3)),
         height: responsive.heightResponsive(7),
         width: responsive.widthResponsive(100),
         decoration: BoxDecoration(
@@ -93,7 +95,7 @@ class _BottomAnimatedContainer extends StatelessWidget {
     if (isDarkTheme) {
       switch (currentTab) {
         case homeTab:
-          return Colors.blue[300]!;
+          return ThemeColors.hintColor;
         case searchTab:
           return Colors.red[300]!;
         case settingsTab:
@@ -104,7 +106,7 @@ class _BottomAnimatedContainer extends StatelessWidget {
     } else {
       switch (currentTab) {
         case homeTab:
-          return Colors.blue;
+          return ThemeColors.hintColor;
         case searchTab:
           return Colors.red;
         case settingsTab:
@@ -129,16 +131,17 @@ class _BottomAnimatedContainer extends StatelessWidget {
       tween: Tween(begin: 0.0, end: isSelected ? 1.0 : 0.0),
       duration: const Duration(milliseconds: 600),
       builder: (context, value, child) {
-        final double width = value * responsive.diagonalResponsive(9) +
+        final double width = value * responsive.diagonalResponsive(11) +
             responsive.heightResponsive(5.5);
         return GestureDetector(
           onTap: isSelected ? null : () => onChanged(index),
           child: Container(
             height: responsive.heightResponsive(5.5),
-            width: width,
+            width: isSelected ? width : responsive.widthResponsive(12),
             margin: const EdgeInsets.symmetric(horizontal: 10),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(horizontal: 13),
+            padding: isSelected
+                ? const EdgeInsets.symmetric(horizontal: 9)
+                : const EdgeInsets.symmetric(horizontal: 0),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
               color: Color.lerp(backgroundColor,
@@ -149,20 +152,20 @@ class _BottomAnimatedContainer extends StatelessWidget {
                 alignment: Alignment.center,
                 children: [
                   AnimatedPositioned(
-                    left: 0,
-                    width: constraints.maxWidth * .3,
+                    left: 14,
+                    width: constraints.maxWidth * .35,
                     duration: const Duration(milliseconds: 0),
-                    child: Icon(
-                      item.icon,
-                      weight: constraints.maxWidth * .3,
-                      color: isSelected
-                          ? choiceColor(context, index)
-                          : (isDarkTheme ? Colors.white : Colors.black45),
+                    child: SvgPicture.asset(
+                      item.iconString,
+                      width: isSelected
+                          ? constraints.maxWidth * .19
+                          : constraints.maxWidth * .4,
+                      color: choiceColor(context, index),
                     ),
                   ),
                   if (isSelected)
                     Positioned(
-                      right: constraints.maxWidth * .08,
+                      right: constraints.maxWidth * .02,
                       width: constraints.maxWidth * .6,
                       child: AnimatedOpacity(
                         opacity: value > 0.7 ? 1 : 0,
@@ -171,7 +174,7 @@ class _BottomAnimatedContainer extends StatelessWidget {
                           fit: BoxFit.none,
                           child: CustomText(
                             text: item.title!,
-                            fontSize: responsive.diagonalResponsive(1.8),
+                            fontSize: responsive.diagonalResponsive(1.6),
                             color: choiceColor(context, index),
                           ),
                         ),

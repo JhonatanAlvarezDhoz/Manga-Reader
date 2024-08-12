@@ -2,24 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:manga_reader/localization/languageManager.dart';
 
 class IconNavBottomBar {
-  IconData icon;
+  String iconString;
   String? title;
   Color? color;
 
-  IconNavBottomBar({required this.icon, this.title, this.color});
+  IconNavBottomBar(
+      {required this.iconString, this.title, this.color, required});
 }
 
 List<IconNavBottomBar> iconNavBottomBar = [
   IconNavBottomBar(
-    icon: Icons.home,
+    iconString: "assets/icons/home.svg",
     title: LanguageManager().translate().home,
   ),
   IconNavBottomBar(
-    icon: Icons.search,
-    title: LanguageManager().translate().search,
+    iconString: "assets/icons/download.svg",
+    title: LanguageManager().translate().download,
   ),
   IconNavBottomBar(
-    icon: Icons.settings,
+    iconString: "assets/icons/settings.svg",
     title: LanguageManager().translate().settings,
   )
 ];

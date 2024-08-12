@@ -10,13 +10,13 @@ class ThemeColors extends Color {
   //Ligth Theme
   /// Defines the primary color used in the application, typically used for primary elements.
   static const Color primaryLight = Color(0xFF448AFF);
-  static const Color hintColor = Color(0xFF448AFF);
+  static const Color hintColor = Color(0xFF00adfe);
   static const Color textPrimaryLightColor = Color(0xFF000000);
   static const Color textSecundaryLightColor = Color(0xDD000000);
 
   //Darck Theme
   /// Defines the primary color used in the application, typically used for primary elements.
-  static const Color primaryDark = Color(0xFF212121);
+  static const Color primaryDark = Color(0xFF252525);
 
   /// Defines a lighter shade of the primary color, often used for highlights or accents.
 

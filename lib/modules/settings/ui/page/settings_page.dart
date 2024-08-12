@@ -22,10 +22,16 @@ class SettingsPage extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SafeArea(
-                  child:
-                      CustomText(text: LanguageManager().translate().settings),
+                Container(
+                  margin: EdgeInsets.only(
+                    bottom: constraints.maxHeight * 0.03,
+                  ),
+                  child: CustomText(
+                    text: LanguageManager().translate().settings,
+                    fontSize: 24,
+                  ),
                 ),
                 _SettingBox(
                   size: size,

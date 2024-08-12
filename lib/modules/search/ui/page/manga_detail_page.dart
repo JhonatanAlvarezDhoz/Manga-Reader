@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:manga_reader/base/widgets/base.dart';
-import 'package:manga_reader/modules/search/bloc/search_delegate_bloc.dart';
+import 'package:manga_reader/localization/languageManager.dart';
+import 'package:manga_reader/modules/home/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/manga_response.dart';
 import 'package:manga_reader/modules/search/ui/page/chapter_detail_page.dart';
 
@@ -47,9 +48,10 @@ class MangaDexDetailView extends StatelessWidget {
                       final chapterA = state.chapters[index].attributes;
                       final chapter = state.chapters[index];
                       return ListTile(
-                          title: Text('Capítulo ${chapterA.chapter}'),
+                          title: Text(
+                              '${LanguageManager().translate().chapter} ${chapterA.chapter}'),
                           subtitle: Text(chapter.attributes.title ??
-                              "Title no encontrado"),
+                              LanguageManager().translate().titleNotFound),
                           onTap: () async {
                             searchBloc.add(LoadChapterPagesEvent(
                                 state.chapters[index].id));
@@ -72,7 +74,8 @@ class MangaDexDetailView extends StatelessWidget {
                       onPressed: () => context
                           .read<SearchDelegateBloc>()
                           .add(LoadMoreChaptersEvent(mangaId: mangaId)),
-                      child: const Text('Cargar más capítulos'),
+                      child: Text(
+                          LanguageManager().translate().uploadMoreChapters),
                     ),
                   ),
               ],

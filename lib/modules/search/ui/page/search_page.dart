@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:manga_reader/base/widgets/custom_text.dart';
-import 'package:manga_reader/modules/search/ui/widgets/search/serch_delegate.dart';
+import 'package:manga_reader/base/widgets/base.dart';
+import 'package:manga_reader/localization/languageManager.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -11,18 +11,9 @@ class SearchPage extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            IconButton(
-              icon: const Icon(Icons.search),
-              onPressed: () async {
-                await showSearch(
-                  context: context,
-                  delegate: SarchMangaDelegate(),
-                );
-              },
-            ),
-            const Center(
-              child: CustomText(text: "SearchPage"),
-            ),
+            Center(
+              child: CustomText(text: LanguageManager().translate().download),
+            )
           ],
         ),
       ),

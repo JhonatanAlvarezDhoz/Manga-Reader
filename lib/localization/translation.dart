@@ -30,7 +30,7 @@ class Translation {
   }
 
   String get download {
-    return _translations['download'] ?? 'Descarga';
+    return _translations['download'] ?? 'Archivos';
   }
 
   String get darckMode {
@@ -43,5 +43,29 @@ class Translation {
 
   String get language {
     return _translations['language'] ?? 'Idioma';
+  }
+
+  String get chapter {
+    return _translations['chapter'] ?? 'Capítulo';
+  }
+
+  String get continueReading {
+    return _translations['continue_reading'] ?? 'Continuar leyendo';
+  }
+
+  String get see {
+    return _translations['see'] ?? 'Ver';
+  }
+
+  String get typeSearch {
+    return _translations['type_search'] ?? 'Buscar...';
+  }
+
+  String get titleNotFound {
+    return _translations['title_not_found'] ?? 'Titulo no encontrado';
+  }
+
+  String get uploadMoreChapters {
+    return _translations['upload_more_chapters'] ?? 'Cargar más capítulos';
   }
 }

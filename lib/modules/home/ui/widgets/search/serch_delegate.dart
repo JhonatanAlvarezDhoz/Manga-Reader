@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:manga_reader/base/widgets/base.dart';
-import 'package:manga_reader/modules/search/bloc/search_delegate_bloc.dart';
+import 'package:manga_reader/modules/home/bloc/search_delegate_bloc.dart';
 import 'package:manga_reader/modules/search/data/models/searchh_result.dart';
 import 'package:manga_reader/modules/search/ui/page/manga_detail_page.dart';
 import 'package:manga_reader/utils/responsive.dart';
 
-class SarchMangaDelegate extends SearchDelegate<SearchResult> {
+class SearchMangaDelegate extends SearchDelegate<SearchResult> {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [

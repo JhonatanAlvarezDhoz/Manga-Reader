@@ -14,6 +14,7 @@ class CustomText extends StatelessWidget {
     this.letterSpacing,
     this.maxLines,
     this.textOverflow,
+    this.height = 1,
   });
 
   final String text;
@@ -24,6 +25,7 @@ class CustomText extends StatelessWidget {
   final TextAlign? textAlign;
   final double? letterSpacing;
   final int? maxLines;
+  final double? height;
   final TextOverflow? textOverflow;
 
   @override
@@ -34,12 +36,13 @@ class CustomText extends StatelessWidget {
       overflow: textOverflow,
       textAlign: textAlign,
       maxLines: maxLines,
-      style: GoogleFonts.workSans(
+      style: GoogleFonts.poppins(
         letterSpacing: letterSpacing,
         color: color,
         fontSize: fontSize ?? r.diagonalResponsive(2),
         fontWeight: fontWeight,
         decoration: isUnderline ? TextDecoration.underline : null,
+        height: height,
       ),
     );
   }

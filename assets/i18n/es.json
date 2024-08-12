@@ -5,8 +5,14 @@
 "settings": "Ajustes",
 "home": "Inicio",
 "search": "Buscar",
-"download": "Descarga",
+"download": "Archivos",
 "darck_mode": "Modo Oscuro",
 "view_mode": "Capitulos en cascada",
-"language": "Idioma"
+"language": "Idioma",
+"chapter": "Capítulo",
+"continue_reading": "Continuar leyendo...",
+"see": "Ver",
+"type_search": "Buscar...",
+"title_not_found": "Title no encontrado",
+"upload_more_chapters": "Cargar más capítulos"
 }
